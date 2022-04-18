@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { PersonComponent } from './person/person.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './store';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
         BrowserModule,
         BrowserAnimationsModule,
         MaterialModule,
-        HttpClientModule
+        HttpClientModule,
+        StoreModule.forRoot(appReducers)
     ],
     providers: [],
     bootstrap: [AppComponent]

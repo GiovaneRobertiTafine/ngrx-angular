@@ -1,3 +1,4 @@
+import { inject } from "@angular/core";
 import { Action } from "@ngrx/store";
 import { Person } from "../models/person.model";
 
@@ -22,9 +23,9 @@ export class PersonUpdate implements Action {
     constructor(public payload: { person: Person; }) { }
 }
 
-export class PersonDelte implements Action {
+export class PersonDelete implements Action {
     readonly type: string = PersonActionTypes.PERSON_DELETE;
     constructor(public payload: { id: string; }) { }
 }
 
-export type PersonActions = PersonAll | PersonNew | PersonUpdate | PersonDelte;
+export type PersonActions = PersonAll | PersonNew | PersonUpdate | PersonDelete;
