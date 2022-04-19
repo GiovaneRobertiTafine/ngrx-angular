@@ -1,4 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="start center">
+    <h3>Count: {{personCount$ | async}}</h3>
+    <h3>Last Person: {{(personLast$ | async).name}}</h3>
+    <h3>Count Age: {{personCountAge$ | async}}</h3>
     <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="70">
         <app-person *ngFor="let p of person$ | async" [person]="p" (delete)="delete($event)" (update)="update($event)">
 
