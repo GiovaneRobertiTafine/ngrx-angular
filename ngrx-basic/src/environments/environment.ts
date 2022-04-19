@@ -4,9 +4,6 @@
 
 export const environment = {
     production: false,
-    apis: {
-        person: "https://6081752273292b0017cdd954.mockapi.io/api/ngrx-basic"
-    },
 };
 
 /*

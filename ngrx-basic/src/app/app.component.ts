@@ -1,69 +1,58 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { interval, Observable, pipe, Subject, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Person } from './models/person.model';
-import { PersonService } from './services/people.service';
 import { AppState } from './store';
-import { PersonAll, PersonInitial, PersonNew, PersonUpdate } from './store/person.actions';
-import { initialState } from './store/person.reducer';
+import { PersonAll, PersonDelete, PersonNew, PersonUpdate } from './store/person.actions';
+import { faker } from '@faker-js/faker';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
     person$!: Observable<Person[]>;
-    private unsubscribe$: Subject<any> = new Subject();
 
-    constructor(private personService: PersonService, private store: Store<AppState>) { }
+    constructor(private store: Store<AppState>) { }
 
     ngOnInit(): void {
-        this.personService.getPersons()
-            .subscribe(
-                (response) => {
-                    this.store.dispatch(new PersonInitial({ person: response }));
-                    this.person$ = this.store.select('person');
-                }
-            );
-
-        // this.store.dispatch(new PersonAll({ persons: [] }, this.personService));
-        // this.person$ = this.store.select('person');
+        this.store.dispatch(new PersonAll());
+        this.person$ = this.store.select('person');
 
     }
 
     addNew() {
-        this.personService.addPerson()
-            .subscribe(
-                (response) => {
-                    this.store.dispatch(new PersonNew({ person: response }));
-                }
-            );
+        const person: Person = {
+            name: faker.name.findName(),
+            address: faker.address.streetAddress(),
+            city: faker.address.city(),
+            country: faker.address.country(),
+            age: Math.round(Math.random() * 100),
+            _id: uuidv4()
+        };
+        this.store.dispatch(new PersonNew({ person }));
     }
 
     update(p: Person) {
-        const updatePerson: Person = {
+        // const p: Person = Object.assign({}, person);
+        // p.address = faker.address.streetAddress();
+        // p.city = faker.address.city();
+        // p.country = faker.address.country();
+        // p.age = Math.round(Math.random() * 100);
+        const person = {
             ...p,
-            name: 'New name' + Math.floor(Math.random() * 10) + 1,
-            age: Math.floor(Math.random() * 10) + 1,
-            address: 'New address' + Math.floor(Math.random() * 10) + 1,
-            city: 'New city' + Math.floor(Math.random() * 10) + 1,
-            country: 'New country' + Math.floor(Math.random() * 10) + 1,
+            address: faker.address.streetAddress(),
+            city: faker.address.city(),
+            country: faker.address.country(),
+            age: Math.round(Math.random() * 100),
         };
-        this.personService.update(updatePerson)
-            .subscribe(
-                (response) => {
-                    this.store.dispatch(new PersonUpdate({ person: response }));
-                    this.person$ = this.store.select('person');
-                }
-            );
+        this.store.dispatch(new PersonUpdate({ person }));
     }
 
-    delete(p: Person) {
-
+    delete(person: Person) {
+        this.store.dispatch(new PersonDelete({ id: person._id as string }));
     }
 
-    ngOnDestroy(): void {
-        this.unsubscribe$.next('');
-    }
 }
