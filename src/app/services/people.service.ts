@@ -17,6 +17,12 @@ export class PeopleService {
             .pipe(catchError(this.handleError));
     }
 
+    addPerson(): Observable<Person> {
+        return this.http
+            .post<Person>(this.baseUrl, {}, { responseType: 'json' })
+            .pipe(catchError(this.handleError));
+    }
+
     private handleError(error: any) {
         let errorMessage = '';
         console.log(error);

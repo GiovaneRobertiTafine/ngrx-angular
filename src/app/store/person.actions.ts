@@ -7,6 +7,7 @@ export enum PersonActionTypes {
     PERSON_NEW = '[PERSON_NEW] Add a new person',
     PERSON_UPDATE = '[PERSON_UPDATE] Update a person',
     PERSON_DELETE = '[PERSON_DELETE] Delete a person',
+    PERSON_INITIAL = '[PERSON_INITiAL] Get all people server'
 }
 
 export class PersonAll implements Action {
@@ -28,4 +29,9 @@ export class PersonDelete implements Action {
     constructor(public payload: { id: string; }) { }
 }
 
-export type PersonActions = PersonAll | PersonNew | PersonUpdate | PersonDelete;
+export class PersonInitial implements Action {
+    readonly type: string = PersonActionTypes.PERSON_INITIAL;
+    constructor(public payload: { persons: Person[]; }) { }
+}
+
+export type PersonActions = PersonAll | PersonNew | PersonUpdate | PersonDelete | PersonInitial;

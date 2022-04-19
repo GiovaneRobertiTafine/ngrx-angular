@@ -8,6 +8,7 @@ import { PersonComponent } from './person/person.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
     declarations: [
@@ -19,9 +20,14 @@ import { appReducers } from './store';
         BrowserAnimationsModule,
         MaterialModule,
         HttpClientModule,
-        StoreModule.forRoot(appReducers)
+        StoreModule.forRoot(appReducers),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

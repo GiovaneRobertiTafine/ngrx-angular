@@ -14,7 +14,7 @@ export class PersonComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        console.log(this.person);
+
     }
 
 }
