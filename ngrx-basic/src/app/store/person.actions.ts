@@ -1,6 +1,7 @@
 import { inject } from "@angular/core";
 import { Action } from "@ngrx/store";
 import { Person } from "../models/person.model";
+import { PersonService } from "../services/people.service";
 
 export enum PersonActionTypes {
     PERSON_ALL = '[PERSON_ALL] Get all people',
@@ -12,6 +13,14 @@ export enum PersonActionTypes {
 
 export class PersonAll implements Action {
     readonly type: string = PersonActionTypes.PERSON_ALL;
+    // constructor(public payload: { person: Person[]; }, public personService: PersonService) {
+    //     this.personService.getPersons()
+    //         .subscribe(
+    //             (response) => {
+    //                 this.payload.person = response;
+    //             }
+    //         );
+    // }
 }
 
 export class PersonNew implements Action {
@@ -31,7 +40,7 @@ export class PersonDelete implements Action {
 
 export class PersonInitial implements Action {
     readonly type: string = PersonActionTypes.PERSON_INITIAL;
-    constructor(public payload: { persons: Person[]; }) { }
+    constructor(public payload: { person: Person[]; }) { }
 }
 
 export type PersonActions = PersonAll | PersonNew | PersonUpdate | PersonDelete | PersonInitial;

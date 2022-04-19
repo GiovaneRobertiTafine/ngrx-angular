@@ -1,11 +1,12 @@
 import { Person } from "../models/person.model";
-import { PersonActions, PersonActionTypes, PersonDelete, PersonInitial, PersonNew, PersonUpdate } from "./person.actions";
+import { PersonActions, PersonActionTypes, PersonAll, PersonDelete, PersonInitial, PersonNew, PersonUpdate } from "./person.actions";
 
 export const initialState: Person[] = [];
 
 export function reducer(state = initialState, action: PersonActions) {
     switch (action.type) {
         case PersonActionTypes.PERSON_ALL:
+            // return state.concat([...(action as PersonAll).payload.person]);
             return state;
         case PersonActionTypes.PERSON_DELETE:
             return state.filter((p) => p._id !== (action as PersonDelete).payload.id);
@@ -19,7 +20,7 @@ export function reducer(state = initialState, action: PersonActions) {
             }
             return people;
         case PersonActionTypes.PERSON_INITIAL:
-            return state.concat([...(action as PersonInitial).payload.persons]);
+            return state.concat([...(action as PersonInitial).payload.person]);
         default:
             return state;
     }
