@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="start center">
     <h3>Count: {{personCount$ | async}}</h3>
-    <h3>Last Person: {{(personLast$ | async).name}}</h3>
+    <h3>Last Person: {{(personLast$ | async)?.name}}</h3>
     <h3>Count Age: {{personCountAge$ | async}}</h3>
     <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="70">
         <app-person *ngFor="let p of person$ | async" [person]="p" (delete)="delete($event)" (update)="update($event)">
@@ -8,5 +8,19 @@
         </app-person>
     </div>
     <button mat-fab color="primary" (click)="addNew()" id="btn-new">New</button>
+
+</div>
+<div fxLayout="column" fxLayoutAlign="start center">
+    <h3>Entity</h3>
+    <h3>Count: {{personCountEntity$ | async}}</h3>
+    <h3>Last Person: {{personLastEntity?.name}}</h3>
+    <h3>Count Age: {{personCountAgeEntity }}</h3>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="70">
+        <app-person *ngFor="let p of personEntity$ | async" [person]="p" (delete)="deleteEntity($event)"
+            (update)="updateEntity($event)">
+
+        </app-person>
+    </div>
+    <button mat-raised-button color="primary" (click)="addNewEntity()" id="btn-new-entity">New Entity</button>
 
 </div>
